@@ -11,7 +11,7 @@ Answers cite the source file and decline when retrieved chunks don't support a r
 - Embeddings: `BAAI/bge-small-en-v1.5` (local)
 - Keyword search: `rank_bm25`, fused with dense results via RRF
 - Reranker: `cross-encoder/ms-marco-MiniLM-L-6-v2` (local)
-- LLM: local Ollama via `langchain-ollama`
+- LLM: OpenAI API via `langchain-openai`
 - Eval: Ragas
 - API: FastAPI
 - Frontend: React + Vite
@@ -21,7 +21,7 @@ Answers cite the source file and decline when retrieved chunks don't support a r
 SupplyDocsQA/
 ├── README.md
 ├── requirements.txt
-├── .env                    # GOOGLE_API_KEY (never commit)
+├── .env                    # OPENAI_API_KEY (never commit)
 ├── .gitignore
 ├── config.yaml             # chunk size, overlap, top_k, thresholds, model names
 ├── main.py                 # entry point: CLI / starts app
@@ -35,7 +35,7 @@ SupplyDocsQA/
 │   ├── vectordb/           # vector_store.py  Chroma operations
 │   ├── retrieval/          # retriever.py (dense), bm25.py, hybrid.py (RRF), reranker.py
 │   ├── prompts/            # prompt_templates.py
-│   ├── llm/                # llm_client.py (Gemini), guard.py (citation check / refusal)
+│   ├── llm/                # llm_client.py (OpenAI), guard.py (citation check / refusal)
 │   ├── api/                # routes.py        FastAPI endpoints
 │   ├── utils/              # helpers.py
 │   └── pipeline.py         # ask(query) -> {answer, citations, refused}
@@ -93,7 +93,7 @@ SupplyDocsQA/
 8. Use the fixed refusal message: "I can't find support for that in the provided documents." Log refusals and the retrieved chunk IDs/scores so the searched evidence can be reviewed; do not vary the refusal wording with query-specific details.
 9. All tunables live in `config.yaml`. No magic numbers in code.
 10. Secrets only in `.env`. Never commit keys.
-11. Cache Ollama responses and Ragas judge calls so repeated evaluations are reproducible and do not repeat local inference.
+11. Cache OpenAI responses and Ragas judge calls so repeated evaluations are reproducible and do not repeat API calls.
 12. Each retrieval stage (dense, bm25, hybrid, rerank) must be callable and testable on its own.
 13. Log retrieved chunk ids and scores per query to `logs/app.log`.
 14. Keep modules small and typed. Don't add dependencies outside the stack without asking.

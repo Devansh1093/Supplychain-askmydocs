@@ -172,7 +172,7 @@ def _git_sha() -> str:
 
 
 def _package_versions() -> dict[str, str]:
-    packages = ["langchain", "langchain-core", "langchain-community", "langchain-chroma", "langchain-ollama", "chromadb", "sentence-transformers", "transformers", "rank-bm25", "PyMuPDF", "ragas", "datasets", "PyYAML", "fastapi"]
+    packages = ["langchain", "langchain-core", "langchain-community", "langchain-chroma", "langchain-openai", "chromadb", "sentence-transformers", "transformers", "rank-bm25", "PyMuPDF", "ragas", "datasets", "PyYAML", "fastapi"]
     result = {}
     for package in packages:
         try:
@@ -187,23 +187,21 @@ def _ragas_scores(rows: list[dict[str, Any]], config: dict[str, Any]) -> list[di
     if not answerable:
         return []
     from datasets import Dataset
-    from langchain_community.cache import SQLiteCache
     from langchain_core.globals import set_llm_cache
-    from langchain_ollama import ChatOllama
+    from langchain_openai import ChatOpenAI
     from ragas import evaluate
     from ragas.metrics import answer_relevancy, context_precision, context_recall, faithfulness
     from ragas.run_config import RunConfig
+    from src.llm.disk_cache import DiskCache
 
-    cache_path = resolve_path(config, "cache_dir") / "judge.sqlite"
-    cache_path.parent.mkdir(parents=True, exist_ok=True)
-    set_llm_cache(SQLiteCache(database_path=str(cache_path)))
+    set_llm_cache(DiskCache(resolve_path(config, "cache_dir") / "judge"))
     llm_config = config["llm"]
-    if llm_config.get("provider") != "ollama":
-        raise ValueError("llm.provider must be 'ollama' for Ragas evaluation")
-    judge = ChatOllama(
+    if llm_config.get("provider") != "openai":
+        raise ValueError("llm.provider must be 'openai' for Ragas evaluation")
+    judge = ChatOpenAI(
         model=config["eval"]["judge_model"],
-        base_url=llm_config["base_url"],
         temperature=0,
+        max_retries=0,
     )
     dataset = Dataset.from_list([
         {"question": row["question"], "answer": row["answer"], "contexts": row["contexts"], "ground_truth": row["reference_answer"]}

@@ -6,7 +6,7 @@ from typing import Any
 
 from src.config import require_calibrated_threshold
 from src.llm.guard import REFUSAL, guard_response
-from src.llm.llm_client import OllamaClient
+from src.llm.llm_client import OpenAIClient
 from src.prompts.prompt_templates import build_messages
 from src.retrieval.service import RetrievalService
 from src.utils.logging import configure_logging
@@ -24,7 +24,7 @@ class SupplyDocsPipeline:
             for mode in ("dense", "hybrid", "hybrid_rerank")
         }
         self.retrieval = RetrievalService(config)
-        self.llm = OllamaClient(config)
+        self.llm = OpenAIClient(config)
 
     def ask(self, query: str, mode: str = "hybrid_rerank") -> dict[str, Any]:
         response, _, _ = self.ask_with_retrieval(query, mode)

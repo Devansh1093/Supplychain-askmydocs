@@ -1,1 +1,1 @@
-"""Ollama client and output guard."""
+"""OpenAI client and output guard."""

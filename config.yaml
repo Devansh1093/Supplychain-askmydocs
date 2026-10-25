@@ -94,9 +94,8 @@ thresholds:
     hybrid_rerank: *id001
   overlap_sim: 0.92
 llm:
-  provider: ollama
-  model: qwen2.5:3b
-  base_url: http://localhost:11434
+  provider: openai
+  model: gpt-6-luna
   temperature: 0
   max_retries: 6
   backoff_base_s: 2
@@ -111,7 +110,7 @@ eval:
   max_wait_s: 60
   timeout_s: 180
   random_seed: 42
-  judge_model: qwen2.5:3b
+  judge_model: gpt-6-luna
   refusal_target_metric: balanced_accuracy
   minimum_dev_examples: 15
   minimum_dev_per_class: 3
