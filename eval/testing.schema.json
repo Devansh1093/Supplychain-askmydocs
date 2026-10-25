@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SupplyDocsQA evaluation question",
+  "type": "object",
+  "required": [
+    "id", "question", "reference_answer", "reference_contexts", "answerable",
+    "type", "source_docs", "reference_sources", "split", "notes"
+  ],
+  "properties": {
+    "id": {"type": "string", "minLength": 1},
+    "question": {"type": "string", "minLength": 1},
+    "reference_answer": {"type": "string"},
+    "reference_contexts": {"type": "array", "items": {"type": "string"}},
+    "answerable": {"type": "boolean"},
+    "type": {"enum": ["factual", "formula", "multi_doc", "conflict", "unanswerable"]},
+    "source_docs": {"type": "array", "items": {"type": "string"}},
+    "reference_sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["file", "pdf_page"],
+        "properties": {"file": {"type": "string"}, "pdf_page": {"type": "integer", "minimum": 1}},
+        "additionalProperties": false
+      }
+    },
+    "split": {"enum": ["dev", "test"]},
+    "notes": {"type": "string"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"answerable": {"const": true}}},
+      "then": {
+        "properties": {
+          "reference_contexts": {"minItems": 1},
+          "reference_sources": {"minItems": 1},
+          "source_docs": {"minItems": 1}
+        }
+      },
+      "else": {
+        "properties": {"reference_contexts": {"maxItems": 0}, "reference_sources": {"maxItems": 0}}
+      }
+    }
+  ],
+  "additionalProperties": false
+}

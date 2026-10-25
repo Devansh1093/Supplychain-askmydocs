@@ -1,0 +1,1 @@
+"""SupplyDocsQA application package."""

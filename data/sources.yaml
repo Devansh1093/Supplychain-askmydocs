@@ -1,0 +1,85 @@
+sources:
+  - doc_id: who_buffer_stock
+    file: "Quality Management Systems for non-laboratory settings.pdf"
+    title: "Quality Management Systems for non-laboratory settings - Toolkit: Define site needs, buffer and alert stocks and calculate quantity to order"
+    publisher: "World Health Organization"
+    year: TBD
+    pdf_created: "2025-08"
+    origin: TBD
+    license_note: TBD
+    doc_type: toolkit_guideline
+    sha256: "cea9330d765ca83ec2b2929e05526424df8420cd517e0ee46c01ef613797c8ac"
+    verified: partial
+
+  - doc_id: inventory_control
+    file: "inventory-control.pdf"
+    title: "Inventory Control"
+    publisher: TBD
+    year: TBD
+    pdf_created: "2025-11"
+    origin: TBD
+    license_note: TBD
+    doc_type: web_page
+    sha256: "fb4d4281654b4e743cad8859c66790ebd33828ec71bce09e0b13a7c1e4646ded"
+    verified: no
+
+  - doc_id: usaid_logistics_handbook
+    file: "Logistics Handbook.pdf"
+    title: "The Logistics Handbook: A Practical Guide for Supply Chain Management of Health Commodities"
+    publisher: "USAID | DELIVER PROJECT"
+    year: "2011 (corrected Nov 3, 2014)"
+    pdf_created: "2011-06"
+    origin: TBD
+    license_note: TBD
+    doc_type: handbook
+    sha256: "6da42db185d06e1ba25a39df079363dfd895e7655cad8c27416e5494d7edae9c"
+    verified: cover
+
+  - doc_id: crs_scm_handbook
+    file: "scmhandbook.pdf"
+    title: TBD
+    publisher: "Catholic Relief Services"
+    year: TBD
+    pdf_created: "2025-04"
+    origin: TBD
+    license_note: TBD
+    doc_type: handbook
+    sha256: "6a68e13ff6bdc86167d57ec59e968c85cfd8ebe0acfa515c478f0e901d5ac4fb"
+    verified: partial
+
+  - doc_id: brc_logistics_manual
+    file: "Whole-manual.pdf"
+    title: "BRC International Logistics Manual"
+    publisher: "British Red Cross"
+    year: TBD
+    pdf_created: "2021-09"
+    origin: TBD
+    license_note: TBD
+    doc_type: manual
+    sha256: "e81868a17928fb52e4da06a659a74b46ccff3992e389fe329d79952cd820df90"
+    verified: cover
+
+  - doc_id: rushton_handbook
+    file: "The handbook of logistics and distribution managment.pdf"
+    title: "The Handbook of Logistics and Distribution Management"
+    publisher: TBD
+    year: TBD
+    authors: "Alan Rushton, Phil Croucher, Peter Baker"
+    pdf_created: TBD
+    origin: "epdf.pub (third-party copy, per original filename)"
+    license_note: TBD
+    doc_type: textbook
+    sha256: "8a4d915eac78e49e940d470a248b5e77d7a6e08700adb3378cc130010d8286da"
+    verified: partial
+
+  - doc_id: wb_scm_guidance
+    file: "World-Bank-Supply-Chain-Management-Guidance.pdf"
+    title: "Procurement Guidance: Supply Chain Management - An introduction and practical toolset for procurement practitioners"
+    publisher: "The World Bank"
+    year: "2023 (First Edition, March 2023)"
+    pdf_created: "2023-03"
+    origin: TBD
+    license_note: TBD
+    doc_type: guidance
+    sha256: "82c52e0c07fdef1b9cedd1a20f8eef7b28c9a82d50de70367b0a42fb5846ee35"
+    verified: cover

@@ -1,0 +1,163 @@
+paths:
+  data_dir: data
+  source_manifest: data/sources.yaml
+  index_manifest: data/manifest.json
+  chroma_dir: chroma_db
+  chroma_collection: supply_docs
+  bm25_index: data/bm25_index.json
+  extraction_report: data/reports/extraction_report.json
+  cache_dir: .cache/llm
+  log_file: logs/app.log
+  testing_jsonl: data/testing.jsonl
+  overlap_labels: data/reports/overlap_labels.json
+models:
+  embedding: BAAI/bge-small-en-v1.5
+  reranker: cross-encoder/ms-marco-MiniLM-L-6-v2
+chunking:
+  target_tokens: 450
+  overlap_tokens: 80
+  min_page_words: 30
+ingestion:
+  parser_version: pymupdf-1
+  repeat_header_fraction: 0.2
+  repeat_header_scan_lines: 2
+  repeat_header_min_chars: 8
+  repeat_header_min_pages: 3
+  printed_page_scan_lines: 5
+  max_empty_page_fraction: 0.15
+  max_junk_glyph_ratio: 0.005
+  report_sample_pages: 5
+  sample_preview_chars: 700
+retrieval:
+  dense_k: 20
+  bm25_k: 20
+  rrf_k: 60
+  rerank_in: 30
+  final_k: 5
+  eval_k: 5
+  reranker_batch_size: 32
+thresholds:
+  refuse_threshold: -0.3680938482284546
+  calibration: &id001
+    mode: hybrid_rerank
+    date: '2026-10-25'
+    dev_set_hash: 27badbcd6c7efd925c65fe18f9b67ec7620ce16f6c0584aeb130783b92a06933
+    dev_set_sha256: abb8a14bbe74779ffcb5da7e5ecfdfa54b57628c7f8ba4ddb57ce4db9fdad12e
+    reranker_model: cross-encoder/ms-marco-MiniLM-L-6-v2
+    index_settings_hash: dd47924e3a88e9f388fe5621362dd69a3845c3dfc522915a9c71c484d294bed7
+    index_content_hash: 77ea2b81171ce7477612e41c029b1222a823aa7ce37b130b85c0f18965bcecf9
+    retrieval_settings_hash: bdb9f29ca2edd2755387edc03606ca269cc9e23791287e33b5606ec746e6f736
+    threshold: -0.3680938482284546
+    metric: balanced_accuracy
+    balanced_accuracy: 0.875
+    sample_count: 15
+    answerable_count: 11
+    unanswerable_count: 4
+    score_type: raw_cross_encoder_logit
+  mode_thresholds:
+    dense: -0.943964958190918
+    hybrid: -0.3680938482284546
+    hybrid_rerank: -0.3680938482284546
+  mode_calibrations:
+    dense:
+      mode: dense
+      date: '2026-10-25'
+      dev_set_hash: 27badbcd6c7efd925c65fe18f9b67ec7620ce16f6c0584aeb130783b92a06933
+      dev_set_sha256: abb8a14bbe74779ffcb5da7e5ecfdfa54b57628c7f8ba4ddb57ce4db9fdad12e
+      reranker_model: cross-encoder/ms-marco-MiniLM-L-6-v2
+      index_settings_hash: dd47924e3a88e9f388fe5621362dd69a3845c3dfc522915a9c71c484d294bed7
+      index_content_hash: 77ea2b81171ce7477612e41c029b1222a823aa7ce37b130b85c0f18965bcecf9
+      retrieval_settings_hash: bdb9f29ca2edd2755387edc03606ca269cc9e23791287e33b5606ec746e6f736
+      threshold: -0.943964958190918
+      metric: balanced_accuracy
+      balanced_accuracy: 0.875
+      sample_count: 15
+      answerable_count: 11
+      unanswerable_count: 4
+      score_type: raw_cross_encoder_logit
+    hybrid:
+      mode: hybrid
+      date: '2026-10-25'
+      dev_set_hash: 27badbcd6c7efd925c65fe18f9b67ec7620ce16f6c0584aeb130783b92a06933
+      dev_set_sha256: abb8a14bbe74779ffcb5da7e5ecfdfa54b57628c7f8ba4ddb57ce4db9fdad12e
+      reranker_model: cross-encoder/ms-marco-MiniLM-L-6-v2
+      index_settings_hash: dd47924e3a88e9f388fe5621362dd69a3845c3dfc522915a9c71c484d294bed7
+      index_content_hash: 77ea2b81171ce7477612e41c029b1222a823aa7ce37b130b85c0f18965bcecf9
+      retrieval_settings_hash: bdb9f29ca2edd2755387edc03606ca269cc9e23791287e33b5606ec746e6f736
+      threshold: -0.3680938482284546
+      metric: balanced_accuracy
+      balanced_accuracy: 0.875
+      sample_count: 15
+      answerable_count: 11
+      unanswerable_count: 4
+      score_type: raw_cross_encoder_logit
+    hybrid_rerank: *id001
+  overlap_sim: 0.92
+llm:
+  provider: ollama
+  model: qwen2.5:3b
+  base_url: http://localhost:11434
+  temperature: 0
+  max_retries: 6
+  backoff_base_s: 2
+  backoff_max_s: 60
+  backoff_jitter_low: 0.75
+  backoff_jitter_high: 1.25
+cache:
+  enabled: true
+eval:
+  max_workers: 1
+  max_retries: 6
+  max_wait_s: 60
+  timeout_s: 180
+  random_seed: 42
+  judge_model: qwen2.5:3b
+  refusal_target_metric: balanced_accuracy
+  minimum_dev_examples: 15
+  minimum_dev_per_class: 3
+  reference_match_threshold: 0.8
+  threshold_epsilon: 1.0e-06
+  score_rounding_digits: 3
+overlap:
+  shingle_words: 8
+  minhash_permutations: 64
+  minhash_bands: 8
+  semantic_candidates: 20
+  top_pairs: 20
+  preview_chars: 400
+  topic_terms:
+    buffer_stock:
+    - buffer stock
+    - safety stock
+    - alert stock
+    max_min:
+    - max-min
+    - maximum-minimum
+    reorder_level:
+    - reorder level
+    - re-order level
+    lead_time:
+    - lead time
+    - lead-time
+    average_monthly_consumption:
+    - amc
+    - average monthly consumption
+    stock_rotation:
+    - fefo
+    - fifo
+    receiving:
+    - receiving
+    - goods receipt
+    warehouse_layout:
+    - warehouse layout
+    - storage layout
+    transport:
+    - transport
+    - freight
+    procurement:
+    - procurement
+    - purchasing
+    incoterms:
+    - incoterms
+logging:
+  level: INFO
