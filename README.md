@@ -1,6 +1,6 @@
 # SupplyDocsQA
 
-Ask questions over the supply-chain PDFs in `data/`. Answers cite source filenames and refuse when evidence is missing. This repository uses the OpenAI API for generation and evaluation, local dense retrieval, BM25/RRF hybrid retrieval, reranking, a FastAPI API, and the evaluation/calibration workflow.
+Ask questions over the supply-chain PDFs. Answers cite source filenames and refuse when evidence is missing. This repository uses the OpenAI API for generation and evaluation, local dense retrieval, BM25/RRF hybrid retrieval, reranking, a FastAPI API, and the evaluation/calibration workflow.
 
 ## Architecture
 
